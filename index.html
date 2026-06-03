@@ -3,353 +3,564 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Julieta · Asistente Creativa de CerveretaDev</title>
+<title>Julieta · Asistente IA de CerveretaDev</title>
+<meta name="description" content="Julieta no responde. Construye, automatiza, diseña y despliega. 50+ skills forjadas una a una.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  * { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg: #08080c;
+    --surface: #0f0f17;
+    --surface-alt: #141420;
+    --border: #1c1c2c;
+    --text: #c4c0b8;
+    --text-dim: #6a6660;
+    --text-bright: #f0ece4;
+    --ember: #d4532a;
+    --ember-glow: #e8653c;
+    --ember-subtle: rgba(212, 83, 42, 0.12);
+    --amber: #c4872e;
+    --font-display: 'Fraunces', 'Georgia', serif;
+    --font-body: 'Geist', 'Inter', system-ui, sans-serif;
+    --max-w: 1200px;
+    --gutter: clamp(1rem, 5vw, 3rem);
+  }
+
+  html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    background: #0a0a0f;
-    color: #e0e0e0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
-    overflow-x: hidden;
+    font-weight: 350;
+    font-size: 1.05rem;
+    -webkit-font-smoothing: antialiased;
   }
+
+  /* ── TYPOGRAPHY ── */
+  .display { font-family: var(--font-display); }
+  .italic { font-style: italic; }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 300;
+    color: var(--text-bright);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+  }
+  h2 em { font-style: italic; font-weight: 400; color: var(--ember); }
 
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 2rem;
-    position: relative;
-    background: radial-gradient(ellipse at 50% 0%, #1a1040 0%, #0a0a0f 70%);
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  }
-
-  .hero-content { position: relative; z-index: 1; max-width: 800px; }
-  .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; color: #fff; margin-bottom: 0.3rem; }
-  .hero .subtitle { font-size: 1.4rem; color: #a78bfa; font-weight: 400; margin-bottom: 1rem; }
-  .hero .tagline { font-size: 1.1rem; color: #6b7280; max-width: 500px; margin: 0 auto 2rem; }
-  .scroll-hint { color: #6b7280; font-size: 0.85rem; animation: bounce 2s infinite; margin-top: 2rem; }
-
-  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
-
-  /* ── GRID ── */
-  .grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5rem;
-  }
-
-  /* ── CARDS ── */
-  .card {
-    background: #12121a;
-    border: 1px solid #1e1e2e;
-    border-radius: 16px;
-    padding: 1.8rem;
-    transition: all 0.3s ease;
+    padding: var(--gutter);
     position: relative;
     overflow: hidden;
   }
-
-  .card::before {
+  .hero::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    opacity: 0.4;
   }
-
-  .card:hover {
-    border-color: #2e2e44;
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  .hero-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; }
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ember);
+    border: 1px solid rgba(212,83,42,0.25);
+    padding: 0.3em 0.9em;
+    border-radius: 100px;
+    margin-bottom: 2rem;
   }
-
-  .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-  .card h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.8rem; font-weight: 700; }
-  .card ul { list-style: none; }
-  .card li {
-    color: #9ca3af;
-    font-size: 0.92rem;
-    padding: 0.3rem 0;
-    padding-left: 1.2rem;
-    position: relative;
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 300;
+    color: var(--text-bright);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
   }
-  .card li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: #a78bfa;
-    font-weight: 700;
+  .hero h1 em { font-style: italic; font-weight: 400; }
+  .hero-lead {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--text-dim);
+    max-width: 540px;
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
   }
+  .hero-lead strong { color: var(--text-bright); font-weight: 500; }
 
-  /* ── COLORS PER CATEGORY ── */
-  .cat-nutricion::before { background: linear-gradient(90deg, #22c55e, #4ade80); }
-  .cat-tickets::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
-  .cat-dev::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
-  .cat-design::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
-  .cat-email::before { background: linear-gradient(90deg, #6366f1, #818cf8); }
-  .cat-stripe::before { background: linear-gradient(90deg, #635bff, #7c75ff); }
-  .cat-creative::before { background: linear-gradient(90deg, #f97316, #fb923c); }
-  .cat-video::before { background: linear-gradient(90deg, #ef4444, #f87171); }
-  .cat-ia::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
-  .cat-smarthome::before { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
-  .cat-research::before { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
-  .cat-devops::before { background: linear-gradient(90deg, #84cc16, #a3e635); }
-  .cat-gaming::before { background: linear-gradient(90deg, #d946ef, #e879f9); }
-  .cat-music::before { background: linear-gradient(90deg, #fb7185, #fda4af); }
-
-  /* ── SECTION HEADERS ── */
-  .section-header {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: none;
-  }
-
-  /* ── STATS BAR ── */
-  .stats {
+  .hero-stats {
     display: flex;
-    justify-content: center;
-    gap: 3rem;
-    padding: 3rem 2rem;
+    gap: 2rem;
     flex-wrap: wrap;
   }
-  .stat { text-align: center; }
-  .stat-num { font-size: 2.5rem; font-weight: 900; color: #a78bfa; }
-  .stat-label { color: #6b7280; font-size: 0.85rem; }
+  .hero-stat { font-family: var(--font-display); }
+  .hero-stat .num {
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--ember-glow);
+    display: block;
+    line-height: 1;
+  }
+  .hero-stat .label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: pulse-fade 3s ease-in-out infinite;
+  }
+  @keyframes pulse-fade { 0%,100%{opacity:0.3} 50%{opacity:0.8} }
+
+  /* ── SCROLL STOPS ── */
+  .scroll-stop {
+    padding: 8rem var(--gutter);
+    position: relative;
+  }
+  .scroll-stop-inner { max-width: var(--max-w); margin: 0 auto; }
+
+  .problem-solution {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  @media (max-width: 768px) { .problem-solution { grid-template-columns: 1fr; gap: 2rem; } }
+
+  .ps-col { border-top: 1px solid var(--border); padding-top: 1.5rem; }
+  .ps-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+  .ps-label.problem { color: var(--text-dim); }
+  .ps-label.solution { color: var(--ember); }
+  .ps-text { font-size: 1.1rem; color: var(--text); line-height: 1.7; }
+
+  /* ── BENTO GRID ── */
+  .bento-section { padding: 5rem var(--gutter); }
+  .bento-inner { max-width: var(--max-w); margin: 0 auto; }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .bento-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .bento-card:hover { border-color: rgba(212,83,42,0.25); }
+  .bento-card .card-accent {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+  .bento-card h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 0.6rem;
+  }
+  .bento-card p, .bento-card ul {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .bento-card ul { list-style: none; padding: 0; }
+  .bento-card li { padding: 0.2rem 0; }
+
+  /* Sizes */
+  .bento-3  { grid-column: span 3; }
+  .bento-4  { grid-column: span 4; }
+  .bento-5  { grid-column: span 5; }
+  .bento-6  { grid-column: span 6; }
+  .bento-7  { grid-column: span 7; }
+  .bento-8  { grid-column: span 8; }
+  .bento-12 { grid-column: span 12; }
+
+  /* Poster card — más alto */
+  .bento-poster { min-height: 360px; display: flex; flex-direction: column; justify-content: center; }
+  .bento-poster h4 { font-size: 1.8rem; font-weight: 300; line-height: 1.15; }
+  .bento-poster .card-accent { font-size: 2.5rem; }
+
+  @media (max-width: 768px) {
+    .bento { grid-template-columns: 1fr; }
+    .bento-3, .bento-4, .bento-5, .bento-6, .bento-7, .bento-8, .bento-12 { grid-column: span 1; }
+    .bento-poster { min-height: 240px; }
+  }
+
+  /* ── CATEGORY GRID ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.8rem;
+    margin-top: 2.5rem;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.3rem;
+    transition: background 0.2s ease;
+  }
+  .skill-card:hover { background: var(--surface-alt); }
+  .skill-card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  .skill-card-items {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ── METHOD ── */
+  .method-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 768px) { .method-steps { grid-template-columns: 1fr; } }
+  .method-step { counter-increment: step; }
+  .method-step::before {
+    content: '0' counter(step);
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--ember);
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .method-step h4 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+  }
+  .method-step p { color: var(--text-dim); font-size: 0.92rem; }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 8rem var(--gutter);
+    text-align: center;
+    position: relative;
+  }
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    opacity: 0.3;
+  }
+  .cta-section h2 { max-width: 700px; margin: 0 auto 1rem; }
+  .cta-text { color: var(--text-dim); max-width: 500px; margin: 0 auto 2.5rem; font-size: 1.05rem; }
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-bright);
+    background: var(--ember);
+    border: none;
+    border-radius: 8px;
+    padding: 0.85em 2.2em;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .cta-btn:hover { background: var(--ember-glow); transform: translateY(-1px); }
 
   /* ── FOOTER ── */
   footer {
     text-align: center;
-    padding: 4rem 2rem;
-    color: #4b5563;
-    font-size: 0.85rem;
-    border-top: 1px solid #1e1e2e;
-    margin-top: 2rem;
+    padding: 4rem var(--gutter);
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
   }
+  footer a { color: var(--ember); text-decoration: none; }
+  footer a:hover { color: var(--ember-glow); }
 
-  footer a { color: #a78bfa; text-decoration: none; }
-
-  @media (max-width: 600px) {
-    .grid { grid-template-columns: 1fr; padding: 2rem 1rem; }
-    .stats { gap: 1.5rem; }
-    .stat-num { font-size: 1.8rem; }
+  /* ── UTILS ── */
+  .section-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ember);
+    margin-bottom: 0.8rem;
+    font-weight: 500;
   }
+  .text-dim { color: var(--text-dim); }
+  .text-bright { color: var(--text-bright); }
 </style>
 </head>
 <body>
 
 <!-- ═══════════ HERO ═══════════ -->
-<header class="hero">
-  <div class="hero-content">
-    <h1>Julieta</h1>
-    <p class="subtitle">Asistente Creativa de CerveretaDev</p>
-    <p class="tagline">Una IA que no solo responde — construye, automatiza, diseña y te ahorra horas de trabajo.</p>
-    <div class="scroll-hint">↓ Todo lo que puede hacer ↓</div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">CerveretaDev · 2026</div>
+    <h1>Julieta, <em>la asistente</em> que no solo responde</h1>
+    <p class="hero-lead">
+      Construye, automatiza, diseña y despliega. <strong>50+ skills</strong> forjadas una a una durante meses de iteración real. No es un demo. Es lo que usamos cada día.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">14</span><span class="label">Categorías</span></div>
+      <div class="hero-stat"><span class="num">50+</span><span class="label">Skills</span></div>
+      <div class="hero-stat"><span class="num">24/7</span><span class="label">Autónoma</span></div>
+    </div>
   </div>
-</header>
+  <div class="hero-scroll">Desplázate</div>
+</section>
 
-<!-- ═══════════ STATS ═══════════ -->
-<div class="stats">
-  <div class="stat"><div class="stat-num">14</div><div class="stat-label">Categorías</div></div>
-  <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Skills</div></div>
-  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Disponible</div></div>
-</div>
-
-<!-- ═══════════ CARDS ═══════════ -->
-<div class="grid">
-
-  <!-- Nutrición -->
-  <div class="card cat-nutricion">
-    <div class="card-icon">🍏</div>
-    <h3>Nutrición & Salud</h3>
-    <ul>
-      <li>Menú diario personalizado según tus calorías</li>
-      <li>Registro de peso con tendencia (subiendo/bajando)</li>
-      <li>Base de datos nutricional USDA con macros</li>
-      <li>Resumen diario: calorías, proteínas, carbos, grasas</li>
-    </ul>
+<!-- ═══════════ PROBLEMA / SOLUCIÓN ═══════════ -->
+<section class="scroll-stop">
+  <div class="scroll-stop-inner">
+    <span class="section-label">El contexto</span>
+    <h2>Un asistente <em>de verdad</em>, no un chatbot con esteroides</h2>
+    <div class="problem-solution">
+      <div class="ps-col">
+        <div class="ps-label problem">El problema</div>
+        <p class="ps-text">
+          La mayoría de asistentes IA son interfaces de chat que escriben bonito pero no <em>hacen</em> nada. Te dicen qué harían, te pasan un link, y ahí se acaba la magia.
+        </p>
+      </div>
+      <div class="ps-col">
+        <div class="ps-label solution">Julieta</div>
+        <p class="ps-text">
+          Escanea tickets, gestiona GitHub, vigila tu correo, controla Stripe, genera menús nutricionales, despliega webs y ejecuta código. <em>No sugiere. Ejecuta.</em>
+        </p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- Tickets -->
-  <div class="card cat-tickets">
-    <div class="card-icon">🧾</div>
-    <h3>Escaneo de Tickets</h3>
-    <ul>
-      <li>Foto → datos estructurados automáticamente</li>
-      <li>Extrae comercio, fecha, productos, precios, total</li>
-      <li>Pipeline completo OCR + IA</li>
-    </ul>
+<!-- ═══════════ BENTO: CAPACIDADES DESTACADAS ═══════════ -->
+<section class="bento-section">
+  <div class="bento-inner">
+    <span class="section-label">Arsenal</span>
+    <h2>Lo que <em>hace</em>, no lo que promete</h2>
+
+    <div class="bento">
+
+      <!-- Poster: Nutrición -->
+      <div class="bento-card bento-6 bento-poster">
+        <div class="card-accent">🍏</div>
+        <h4>Nutrición<br>con precisión</h4>
+        <p class="text-dim">Menús diarios según tus calorías. Tracking de peso con tendencia. Base USDA con macros exactos. Todo automatizado.</p>
+      </div>
+
+      <!-- Poster: GitHub -->
+      <div class="bento-card bento-6 bento-poster">
+        <div class="card-accent">⚡</div>
+        <h4>GitHub<br>sin fricción</h4>
+        <p class="text-dim">Crea repos, ramas, commits y PRs. Code review automático. Deploy a producción. TDD integrado.</p>
+      </div>
+
+      <!-- Dev -->
+      <div class="bento-card bento-4">
+        <div class="card-accent">💻</div>
+        <h4>Programación</h4>
+        <ul>
+          <li>Auditoría de código React</li>
+          <li>Planificación de features</li>
+          <li>Debugging sistemático</li>
+          <li>PWA con Service Workers</li>
+        </ul>
+      </div>
+
+      <!-- Stripe -->
+      <div class="bento-card bento-4">
+        <div class="card-accent">💰</div>
+        <h4>Stripe & Pagos</h4>
+        <ul>
+          <li>Clientes, productos, precios</li>
+          <li>Suscripciones y facturas</li>
+          <li>Cupones y reembolsos</li>
+          <li>Payment links al instante</li>
+        </ul>
+      </div>
+
+      <!-- Tickets -->
+      <div class="bento-card bento-4">
+        <div class="card-accent">🧾</div>
+        <h4>Escaneo de tickets</h4>
+        <ul>
+          <li>Foto → datos estructurados</li>
+          <li>OCR + IA integrados</li>
+          <li>Extrae comercio, fecha, total</li>
+          <li>Pipeline completo autónomo</li>
+        </ul>
+      </div>
+
+      <!-- Diseño -->
+      <div class="bento-card bento-5">
+        <div class="card-accent">🌐</div>
+        <h4>Landing pages cinemáticas</h4>
+        <p>Diseño editorial anti-slop. 54 sistemas de referencia. Scroll narrativo estilo Apple/Stripe.</p>
+      </div>
+
+      <!-- IA -->
+      <div class="bento-card bento-7">
+        <div class="card-accent">🤖</div>
+        <h4>IA & Automatización</h4>
+        <p>Subagentes en paralelo. Cron jobs autónomos. Evaluación de modelos LLM. Fine-tuning y cuantización.</p>
+      </div>
+
+    </div>
   </div>
+</section>
 
-  <!-- Programación -->
-  <div class="card cat-dev">
-    <div class="card-icon">💻</div>
-    <h3>Programación & GitHub</h3>
-    <ul>
-      <li>Crear repos, ramas, commits y PRs</li>
-      <li>Code review automático con mejoras</li>
-      <li>Deploy automatizado a producción</li>
-      <li>Auditoría de código React</li>
-      <li>TDD: desarrollo guiado por tests</li>
-      <li>Debugging sistemático (raíz del bug)</li>
-      <li>Planificación de features paso a paso</li>
-    </ul>
+<!-- ═══════════ MÉTODO ═══════════ -->
+<section class="scroll-stop">
+  <div class="scroll-stop-inner">
+    <span class="section-label">Cómo funciona</span>
+    <h2>Tres pasos.<br><em>Cero humo.</em></h2>
+    <div class="method-steps">
+      <div class="method-step">
+        <h4>Le hablas</h4>
+        <p>Por Telegram, en lenguaje natural. Sin comandos raros ni sintaxis arcana.</p>
+      </div>
+      <div class="method-step">
+        <h4>Ejecuta</h4>
+        <p>No sugiere enlaces. Abre terminales, llama APIs, escribe archivos, despliega.</p>
+      </div>
+      <div class="method-step">
+        <h4>Te cuenta</h4>
+        <p>Resultado verificable. Un archivo, una URL, un commit. Algo que puedes tocar.</p>
+      </div>
+    </div>
   </div>
+</section>
 
-  <!-- Diseño Web -->
-  <div class="card cat-design">
-    <div class="card-icon">🌐</div>
-    <h3>Landing Pages & Diseño</h3>
-    <ul>
-      <li>Landings cinemáticas anti-slop</li>
-      <li>Scroll narrativo estilo Apple/Stripe</li>
-      <li>54 sistemas de diseño de referencia</li>
-      <li>HTML/CSS/JS con prototipos rápidos</li>
-      <li>Progressive Web Apps con offline</li>
-    </ul>
+<!-- ═══════════ TODAS LAS CATEGORÍAS ═══════════ -->
+<section class="bento-section">
+  <div class="bento-inner">
+    <span class="section-label">El repertorio completo</span>
+    <h2>14 categorías.<br><em>50+ skills.</em></h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-card-title">🍏 Nutrición & Salud</div>
+        <div class="skill-card-items">Menús personalizados · Tracking de peso · Base USDA · Resumen diario de macros</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🧾 Escaneo de Tickets</div>
+        <div class="skill-card-items">OCR + IA · Extracción de comercio/fecha/total · Pipeline automatizado</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">💻 Programación & GitHub</div>
+        <div class="skill-card-items">Repos, PRs, code review · Auditoría React · TDD · Debugging · Deploy</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🌐 Diseño Web</div>
+        <div class="skill-card-items">Landings cinemáticas · 54 design systems · PWA · HTML/CSS editorial</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">📧 Correo</div>
+        <div class="skill-card-items">Monitor autónomo · Filtro de ruido · Redacción de borradores · Envío directo</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">💰 Stripe</div>
+        <div class="skill-card-items">Clientes, productos, precios · Suscripciones · Facturas · Reembolsos</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🎨 Contenido Creativo</div>
+        <div class="skill-card-items">Imágenes IA · ASCII art · Diagramas SVG · Infografías · Cómics · Pixel art</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🎬 Vídeo & Multimedia</div>
+        <div class="skill-card-items">HyperFrames · Animaciones Manim · Transcripción YouTube · Música IA</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🤖 IA & Automatización</div>
+        <div class="skill-card-items">Subagentes paralelos · Cron jobs · Benchmarks LLM · Fine-tuning</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🏠 Hogar Inteligente</div>
+        <div class="skill-card-items">Control Philips Hue · Escenas · Ambientes por voz</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🔬 Investigación</div>
+        <div class="skill-card-items">arXiv · Polymarket · Extracción web · OCR documentos · Mapas</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">☁️ Infraestructura</div>
+        <div class="skill-card-items">Gestión VPS · Actualización bare-metal · Webhooks · Credenciales seguras</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🎮 Gaming</div>
+        <div class="skill-card-items">Servidor Minecraft moddeado · Emulador Pokémon headless</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-title">🎵 Música & Audio</div>
+        <div class="skill-card-items">Spotify · Texto a voz · Espectrogramas · Análisis de audio</div>
+      </div>
+
+    </div>
   </div>
+</section>
 
-  <!-- Email -->
-  <div class="card cat-email">
-    <div class="card-icon">📧</div>
-    <h3>Correo & Comunicación</h3>
-    <ul>
-      <li>Monitor autónomo de bandeja IONOS</li>
-      <li>Filtro de ruido — solo lo importante</li>
-      <li>Redacta borradores (sarcasmo incluido)</li>
-      <li>Envío directo vía terminal</li>
-    </ul>
-  </div>
+<!-- ═══════════ CTA FINAL ═══════════ -->
+<section class="cta-section">
+  <h2>Esto es solo<br><em>lo que ya sabe hacer.</em></h2>
+  <p class="cta-text">Cada semana aprende algo nuevo. Si tienes un problema repetitivo, probablemente Julieta pueda resolverlo.</p>
+  <a href="https://cerveretadev.es" class="cta-btn">Ver más en CerveretaDev</a>
+</section>
 
-  <!-- Stripe -->
-  <div class="card cat-stripe">
-    <div class="card-icon">💰</div>
-    <h3>Pagos & Stripe</h3>
-    <ul>
-      <li>Gestión de clientes, productos, precios</li>
-      <li>Suscripciones, facturas, cupones, reembolsos</li>
-      <li>Payment links al instante</li>
-      <li>Balance y cuenta en tiempo real</li>
-      <li>Planificador de integración guiada</li>
-    </ul>
-  </div>
-
-  <!-- Creativo -->
-  <div class="card cat-creative">
-    <div class="card-icon">🎨</div>
-    <h3>Contenido Creativo</h3>
-    <ul>
-      <li>Generación de imágenes con IA (FAL, Flux)</li>
-      <li>ASCII art y vídeos ASCII</li>
-      <li>Diagramas de arquitectura SVG oscuros</li>
-      <li>Infografías: 21 layouts × 21 estilos</li>
-      <li>Cómics de conocimiento educativo</li>
-      <li>Pixel art retro (NES, Game Boy)</li>
-    </ul>
-  </div>
-
-  <!-- Vídeo -->
-  <div class="card cat-video">
-    <div class="card-icon">🎬</div>
-    <h3>Vídeo & Multimedia</h3>
-    <ul>
-      <li>Composiciones HyperFrames con overlays</li>
-      <li>Animaciones matemáticas estilo 3Blue1Brown</li>
-      <li>Transcripción de YouTube a resúmenes</li>
-      <li>Música generada por IA</li>
-    </ul>
-  </div>
-
-  <!-- IA -->
-  <div class="card cat-ia">
-    <div class="card-icon">🤖</div>
-    <h3>IA & Automatización</h3>
-    <ul>
-      <li>Delegación a subagentes en paralelo</li>
-      <li>Cron jobs autónomos programables</li>
-      <li>Evaluación de modelos LLM con benchmarks</li>
-      <li>Fine-tuning y cuantización de modelos</li>
-    </ul>
-  </div>
-
-  <!-- Smart Home -->
-  <div class="card cat-smarthome">
-    <div class="card-icon">🏠</div>
-    <h3>Hogar Inteligente</h3>
-    <ul>
-      <li>Control de luces Philips Hue</li>
-      <li>Escenas y ambientes por voz</li>
-    </ul>
-  </div>
-
-  <!-- Investigación -->
-  <div class="card cat-research">
-    <div class="card-icon">🔬</div>
-    <h3>Investigación & Datos</h3>
-    <ul>
-      <li>Papers académicos (arXiv)</li>
-      <li>Mercados de predicción (Polymarket)</li>
-      <li>Extracción de contenido web y PDFs</li>
-      <li>OCR de documentos</li>
-      <li>Mapas, rutas y geocodificación</li>
-    </ul>
-  </div>
-
-  <!-- DevOps -->
-  <div class="card cat-devops">
-    <div class="card-icon">☁️</div>
-    <h3>Infraestructura & DevOps</h3>
-    <ul>
-      <li>Gestión de VPS (local + cloud IONOS)</li>
-      <li>Actualización de Hermes en bare-metal</li>
-      <li>Credenciales seguras — nunca en texto plano</li>
-      <li>Webhooks para ejecución por eventos</li>
-    </ul>
-  </div>
-
-  <!-- Gaming -->
-  <div class="card cat-gaming">
-    <div class="card-icon">🎮</div>
-    <h3>Gaming</h3>
-    <ul>
-      <li>Servidor Minecraft moddeado</li>
-      <li>Jugar Pokémon vía emulador headless</li>
-    </ul>
-  </div>
-
-  <!-- Música -->
-  <div class="card cat-music">
-    <div class="card-icon">🎵</div>
-    <h3>Música & Audio</h3>
-    <ul>
-      <li>Control de Spotify (play, playlists, búsqueda)</li>
-      <li>Texto a voz — mensajes en audio</li>
-      <li>Espectrogramas y análisis de audio</li>
-    </ul>
-  </div>
-
-</div>
-
-<!-- ═══════════ FOOTER ═══════════ -->
 <footer>
-  Hecho con ⚡ por <a href="https://cerveretadev.es">CerveretaDev</a> · 2026<br>
-  Julieta corre sobre <strong>Hermes Agent</strong> con DeepSeek v4 Pro
+  Forjado con <span style="color:var(--ember)">ember</span> por <a href="https://cerveretadev.es">CerveretaDev</a> · 2026<br>
+  Julieta corre sobre Hermes Agent · DeepSeek v4 Pro
 </footer>
 
 </body>
