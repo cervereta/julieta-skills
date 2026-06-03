@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julieta · Asistente Creativa de CerveretaDev</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    background: radial-gradient(ellipse at 50% 0%, #1a1040 0%, #0a0a0f 70%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; color: #fff; margin-bottom: 0.3rem; }
+  .hero .subtitle { font-size: 1.4rem; color: #a78bfa; font-weight: 400; margin-bottom: 1rem; }
+  .hero .tagline { font-size: 1.1rem; color: #6b7280; max-width: 500px; margin: 0 auto 2rem; }
+  .scroll-hint { color: #6b7280; font-size: 0.85rem; animation: bounce 2s infinite; margin-top: 2rem; }
+
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+  /* ── GRID ── */
+  .grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: #12121a;
+    border: 1px solid #1e1e2e;
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card:hover {
+    border-color: #2e2e44;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h3 { color: #fff; font-size: 1.2rem; margin-bottom: 0.8rem; font-weight: 700; }
+  .card ul { list-style: none; }
+  .card li {
+    color: #9ca3af;
+    font-size: 0.92rem;
+    padding: 0.3rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .card li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #a78bfa;
+    font-weight: 700;
+  }
+
+  /* ── COLORS PER CATEGORY ── */
+  .cat-nutricion::before { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .cat-tickets::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .cat-dev::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .cat-design::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
+  .cat-email::before { background: linear-gradient(90deg, #6366f1, #818cf8); }
+  .cat-stripe::before { background: linear-gradient(90deg, #635bff, #7c75ff); }
+  .cat-creative::before { background: linear-gradient(90deg, #f97316, #fb923c); }
+  .cat-video::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+  .cat-ia::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+  .cat-smarthome::before { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
+  .cat-research::before { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+  .cat-devops::before { background: linear-gradient(90deg, #84cc16, #a3e635); }
+  .cat-gaming::before { background: linear-gradient(90deg, #d946ef, #e879f9); }
+  .cat-music::before { background: linear-gradient(90deg, #fb7185, #fda4af); }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: none;
+  }
+
+  /* ── STATS BAR ── */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding: 3rem 2rem;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-size: 2.5rem; font-weight: 900; color: #a78bfa; }
+  .stat-label { color: #6b7280; font-size: 0.85rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #4b5563;
+    font-size: 0.85rem;
+    border-top: 1px solid #1e1e2e;
+    margin-top: 2rem;
+  }
+
+  footer a { color: #a78bfa; text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; padding: 2rem 1rem; }
+    .stats { gap: 1.5rem; }
+    .stat-num { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-content">
+    <h1>Julieta</h1>
+    <p class="subtitle">Asistente Creativa de CerveretaDev</p>
+    <p class="tagline">Una IA que no solo responde — construye, automatiza, diseña y te ahorra horas de trabajo.</p>
+    <div class="scroll-hint">↓ Todo lo que puede hacer ↓</div>
+  </div>
+</header>
+
+<!-- ═══════════ STATS ═══════════ -->
+<div class="stats">
+  <div class="stat"><div class="stat-num">14</div><div class="stat-label">Categorías</div></div>
+  <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Skills</div></div>
+  <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Disponible</div></div>
+</div>
+
+<!-- ═══════════ CARDS ═══════════ -->
+<div class="grid">
+
+  <!-- Nutrición -->
+  <div class="card cat-nutricion">
+    <div class="card-icon">🍏</div>
+    <h3>Nutrición & Salud</h3>
+    <ul>
+      <li>Menú diario personalizado según tus calorías</li>
+      <li>Registro de peso con tendencia (subiendo/bajando)</li>
+      <li>Base de datos nutricional USDA con macros</li>
+      <li>Resumen diario: calorías, proteínas, carbos, grasas</li>
+    </ul>
+  </div>
+
+  <!-- Tickets -->
+  <div class="card cat-tickets">
+    <div class="card-icon">🧾</div>
+    <h3>Escaneo de Tickets</h3>
+    <ul>
+      <li>Foto → datos estructurados automáticamente</li>
+      <li>Extrae comercio, fecha, productos, precios, total</li>
+      <li>Pipeline completo OCR + IA</li>
+    </ul>
+  </div>
+
+  <!-- Programación -->
+  <div class="card cat-dev">
+    <div class="card-icon">💻</div>
+    <h3>Programación & GitHub</h3>
+    <ul>
+      <li>Crear repos, ramas, commits y PRs</li>
+      <li>Code review automático con mejoras</li>
+      <li>Deploy automatizado a producción</li>
+      <li>Auditoría de código React</li>
+      <li>TDD: desarrollo guiado por tests</li>
+      <li>Debugging sistemático (raíz del bug)</li>
+      <li>Planificación de features paso a paso</li>
+    </ul>
+  </div>
+
+  <!-- Diseño Web -->
+  <div class="card cat-design">
+    <div class="card-icon">🌐</div>
+    <h3>Landing Pages & Diseño</h3>
+    <ul>
+      <li>Landings cinemáticas anti-slop</li>
+      <li>Scroll narrativo estilo Apple/Stripe</li>
+      <li>54 sistemas de diseño de referencia</li>
+      <li>HTML/CSS/JS con prototipos rápidos</li>
+      <li>Progressive Web Apps con offline</li>
+    </ul>
+  </div>
+
+  <!-- Email -->
+  <div class="card cat-email">
+    <div class="card-icon">📧</div>
+    <h3>Correo & Comunicación</h3>
+    <ul>
+      <li>Monitor autónomo de bandeja IONOS</li>
+      <li>Filtro de ruido — solo lo importante</li>
+      <li>Redacta borradores (sarcasmo incluido)</li>
+      <li>Envío directo vía terminal</li>
+    </ul>
+  </div>
+
+  <!-- Stripe -->
+  <div class="card cat-stripe">
+    <div class="card-icon">💰</div>
+    <h3>Pagos & Stripe</h3>
+    <ul>
+      <li>Gestión de clientes, productos, precios</li>
+      <li>Suscripciones, facturas, cupones, reembolsos</li>
+      <li>Payment links al instante</li>
+      <li>Balance y cuenta en tiempo real</li>
+      <li>Planificador de integración guiada</li>
+    </ul>
+  </div>
+
+  <!-- Creativo -->
+  <div class="card cat-creative">
+    <div class="card-icon">🎨</div>
+    <h3>Contenido Creativo</h3>
+    <ul>
+      <li>Generación de imágenes con IA (FAL, Flux)</li>
+      <li>ASCII art y vídeos ASCII</li>
+      <li>Diagramas de arquitectura SVG oscuros</li>
+      <li>Infografías: 21 layouts × 21 estilos</li>
+      <li>Cómics de conocimiento educativo</li>
+      <li>Pixel art retro (NES, Game Boy)</li>
+    </ul>
+  </div>
+
+  <!-- Vídeo -->
+  <div class="card cat-video">
+    <div class="card-icon">🎬</div>
+    <h3>Vídeo & Multimedia</h3>
+    <ul>
+      <li>Composiciones HyperFrames con overlays</li>
+      <li>Animaciones matemáticas estilo 3Blue1Brown</li>
+      <li>Transcripción de YouTube a resúmenes</li>
+      <li>Música generada por IA</li>
+    </ul>
+  </div>
+
+  <!-- IA -->
+  <div class="card cat-ia">
+    <div class="card-icon">🤖</div>
+    <h3>IA & Automatización</h3>
+    <ul>
+      <li>Delegación a subagentes en paralelo</li>
+      <li>Cron jobs autónomos programables</li>
+      <li>Evaluación de modelos LLM con benchmarks</li>
+      <li>Fine-tuning y cuantización de modelos</li>
+    </ul>
+  </div>
+
+  <!-- Smart Home -->
+  <div class="card cat-smarthome">
+    <div class="card-icon">🏠</div>
+    <h3>Hogar Inteligente</h3>
+    <ul>
+      <li>Control de luces Philips Hue</li>
+      <li>Escenas y ambientes por voz</li>
+    </ul>
+  </div>
+
+  <!-- Investigación -->
+  <div class="card cat-research">
+    <div class="card-icon">🔬</div>
+    <h3>Investigación & Datos</h3>
+    <ul>
+      <li>Papers académicos (arXiv)</li>
+      <li>Mercados de predicción (Polymarket)</li>
+      <li>Extracción de contenido web y PDFs</li>
+      <li>OCR de documentos</li>
+      <li>Mapas, rutas y geocodificación</li>
+    </ul>
+  </div>
+
+  <!-- DevOps -->
+  <div class="card cat-devops">
+    <div class="card-icon">☁️</div>
+    <h3>Infraestructura & DevOps</h3>
+    <ul>
+      <li>Gestión de VPS (local + cloud IONOS)</li>
+      <li>Actualización de Hermes en bare-metal</li>
+      <li>Credenciales seguras — nunca en texto plano</li>
+      <li>Webhooks para ejecución por eventos</li>
+    </ul>
+  </div>
+
+  <!-- Gaming -->
+  <div class="card cat-gaming">
+    <div class="card-icon">🎮</div>
+    <h3>Gaming</h3>
+    <ul>
+      <li>Servidor Minecraft moddeado</li>
+      <li>Jugar Pokémon vía emulador headless</li>
+    </ul>
+  </div>
+
+  <!-- Música -->
+  <div class="card cat-music">
+    <div class="card-icon">🎵</div>
+    <h3>Música & Audio</h3>
+    <ul>
+      <li>Control de Spotify (play, playlists, búsqueda)</li>
+      <li>Texto a voz — mensajes en audio</li>
+      <li>Espectrogramas y análisis de audio</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  Hecho con ⚡ por <a href="https://cerveretadev.es">CerveretaDev</a> · 2026<br>
+  Julieta corre sobre <strong>Hermes Agent</strong> con DeepSeek v4 Pro
+</footer>
+
+</body>
+</html>
