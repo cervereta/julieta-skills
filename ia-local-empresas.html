@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CerveretaDev — Guía de Hardware para IA Local Empresarial</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #0a0e17;
+    color: #e0e0e0;
+    line-height: 1.7;
+    padding: 40px 20px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    font-size: 2.4em;
+    background: linear-gradient(135deg, #00d4aa, #4a9eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    color: #8892b0;
+    font-size: 1.1em;
+    margin-bottom: 40px;
+    border-left: 3px solid #00d4aa;
+    padding-left: 16px;
+  }
+  h2 {
+    color: #ccd6f6;
+    font-size: 1.6em;
+    margin: 40px 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #1e2a3a;
+  }
+  h3 { color: #a8b2d1; margin: 20px 0 10px; font-size: 1.2em; }
+  .highlight-box {
+    background: linear-gradient(135deg, #112233, #0d1b2a);
+    border: 1px solid #1e3a5f;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+  }
+  .highlight-box p { margin: 0; font-size: 1.1em; color: #64ffda; }
+  .rule-box {
+    background: linear-gradient(135deg, #1a0e0e, #220f0f);
+    border: 1px solid #5f2e2e;
+    border-left: 4px solid #ff6b6b;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 24px 0;
+  }
+  .rule-box strong { color: #ff6b6b; font-size: 1.15em; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95em;
+  }
+  th {
+    background: #112233;
+    color: #64ffda;
+    text-align: left;
+    padding: 14px 16px;
+    border-bottom: 2px solid #1e3a5f;
+    font-weight: 600;
+  }
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #1a2a3a;
+  }
+  tr:hover td { background: #0f1a25; }
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85em;
+  }
+  .badge-bronze { background: #3d2e1e; color: #e0a050; }
+  .badge-silver { background: #2a2e35; color: #b0b8c0; }
+  .badge-gold { background: #2e2510; color: #e0c050; }
+  .badge-green { background: #0e2a1e; color: #50e070; }
+  .badge-blue { background: #0e1e3a; color: #5090e0; }
+  .pricing { font-size: 1.2em; font-weight: 700; color: #64ffda; }
+  .level-card {
+    background: linear-gradient(135deg, #0f1923, #0a1219);
+    border: 1px solid #1e2a3a;
+    border-radius: 12px;
+    padding: 28px;
+    margin: 24px 0;
+    border-top: 4px solid #00d4aa;
+  }
+  .level-card.silver { border-top-color: #a0a0a0; }
+  .level-card.gold { border-top-color: #e0c050; }
+  .level-card h3 { margin-top: 0; font-size: 1.4em; }
+  .level-card .meta { color: #8892b0; font-size: 0.9em; margin-bottom: 16px; }
+  ul { list-style: none; padding: 0; }
+  ul li { padding: 6px 0; padding-left: 24px; position: relative; }
+  ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 4px;
+    color: #00d4aa;
+    font-size: 0.8em;
+  }
+  .comparison td:first-child { font-weight: 600; color: #ccd6f6; white-space: nowrap; }
+  .footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #1e2a3a;
+    text-align: center;
+    color: #8892b0;
+  }
+  .footer a { color: #64ffda; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+  .tag { display: inline-block; background: #1a2a3a; color: #8892b0; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; margin: 2px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🧠 IA Local para Empresas</h1>
+<p class="subtitle">Guía de hardware, modelos y estrategia de despliegue · CerveretaDev · Junio 2026</p>
+
+<!-- REGLA DE ORO -->
+<div class="highlight-box">
+  <p>📐 <strong>La regla de oro:</strong> Más VRAM = más cerebro. Más GPUs = más usuarios simultáneos. No se trata de «un PC potente», sino de dimensionar según <em>qué modelo</em> y <em>cuánta gente</em> lo usa a la vez.</p>
+</div>
+
+<!-- MÉTRICA CLAVE -->
+<h2>🔑 La única métrica que manda</h2>
+<div class="rule-box">
+  <strong>VRAM total de tus GPUs.</strong><br>
+  Cada billón de parámetros del modelo necesita:<br>
+  &nbsp;&nbsp;• ~<strong>2 GB</strong> en FP16 (calidad máxima)<br>
+  &nbsp;&nbsp;• ~<strong>0.5-1 GB</strong> en 4-bit (calidad muy buena, 95% de la original)<br><br>
+  <em>Ejemplo: Gemma 4 12B → FP16 necesita ~24 GB (1 RTX 5090 va sobrada) / 4-bit necesita ~6 GB (cabe en una RTX 4060)</em>
+</div>
+
+<!-- TRES NIVELES -->
+<h2>📊 Los 3 Niveles de Despliegue</h2>
+
+<div class="level-card">
+  <h3>🥉 Nivel 1 — Oficina pequeña <span class="badge badge-bronze">1-10 empleados</span></h3>
+  <p class="meta">Torre o workstation · Silenciosa · Puede vivir en la propia oficina</p>
+  <table>
+    <tr><td>GPU</td><td><strong>2× RTX 5090</strong> (32 GB VRAM c/u → 64 GB total)</td></tr>
+    <tr><td>RAM sistema</td><td>64-128 GB DDR5</td></tr>
+    <tr><td>Almacenamiento</td><td>2 TB NVMe + 4 TB HDD backups</td></tr>
+    <tr><td>CPU</td><td>Intel Core i9 / AMD Ryzen 9</td></tr>
+    <tr><td>Presupuesto</td><td class="pricing">~8.000 – 12.000 €</td></tr>
+    <tr><td>Modelos viables</td><td>7B–32B: Gemma 4 12B, Llama 4 12B, Qwen 2.5 32B, Mistral Small</td></tr>
+    <tr><td>Casos de uso</td><td>Chat interno, RAG sobre PDFs, automatizaciones de oficina, asistente de correo</td></tr>
+  </table>
+</div>
+
+<div class="level-card silver">
+  <h3>🥈 Nivel 2 — PYME / Despacho profesional <span class="badge badge-silver">10-50 empleados</span></h3>
+  <p class="meta">Servidor rack 4U · Sala técnica o armario climatizado</p>
+  <table>
+    <tr><td>GPU</td><td><strong>4× RTX 6000 Ada</strong> (48 GB VRAM c/u → 192 GB total)</td></tr>
+    <tr><td>RAM sistema</td><td>256-512 GB</td></tr>
+    <tr><td>Almacenamiento</td><td>4 TB NVMe RAID + NAS backups</td></tr>
+    <tr><td>CPU</td><td>Dual Intel Xeon / AMD EPYC</td></tr>
+    <tr><td>Presupuesto</td><td class="pricing">~25.000 – 40.000 €</td></tr>
+    <tr><td>Modelos viables</td><td>70B en 4-bit: Llama 4 70B, Qwen 2.5 72B, Command R+</td></tr>
+    <tr><td>Casos de uso</td><td>Reemplazo total de ChatGPT Enterprise, RAG avanzado sobre documentación corporativa, multi-fine-tuning por departamento</td></tr>
+  </table>
+</div>
+
+<div class="level-card gold">
+  <h3>🥇 Nivel 3 — Empresa grande / Corporación <span class="badge badge-gold">50-200+ empleados</span></h3>
+  <p class="meta">Datacenter propio o sala de servidores dedicada</p>
+  <table>
+    <tr><td>GPU</td><td><strong>NVIDIA DGX Station B200</strong> u 8× H100 / L40S</td></tr>
+    <tr><td>RAM sistema</td><td>512 GB – 1 TB</td></tr>
+    <tr><td>Almacenamiento</td><td>10+ TB NVMe RAID + SAN</td></tr>
+    <tr><td>Presupuesto</td><td class="pricing">~100.000 – 300.000 €+</td></tr>
+    <tr><td>Modelos viables</td><td>70B–405B sin cuantizar, múltiples modelos en paralelo, fine-tuning de modelos propios</td></tr>
+    <tr><td>Casos de uso</td><td>IA multimodal (visión + texto), modelos custom entrenados con datos propios, cientos de usuarios concurrentes</td></tr>
+  </table>
+</div>
+
+<!-- COMPARATIVA MODELOS VS HARDWARE -->
+<h2>🔬 Comparativa: Modelos vs Hardware</h2>
+<table class="comparison">
+  <thead>
+    <tr>
+      <th>Modelo</th>
+      <th>Parámetros</th>
+      <th>Tipo</th>
+      <th>VRAM FP16</th>
+      <th>VRAM 4-bit</th>
+      <th>GPU mínima</th>
+      <th>GPU recomendada</th>
+      <th>Usuarios</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Gemma 4</td>
+      <td>12B</td>
+      <td><span class="badge badge-green">Texto + Visión</span></td>
+      <td>~24 GB</td>
+      <td>~6 GB</td>
+      <td>RTX 4060 8GB</td>
+      <td>RTX 5090</td>
+      <td>1-10</td>
+    </tr>
+    <tr>
+      <td>Llama 4</td>
+      <td>12B</td>
+      <td><span class="badge badge-green">Texto + Visión</span></td>
+      <td>~24 GB</td>
+      <td>~6 GB</td>
+      <td>RTX 4060 8GB</td>
+      <td>RTX 5090</td>
+      <td>1-10</td>
+    </tr>
+    <tr>
+      <td>Qwen 2.5</td>
+      <td>32B</td>
+      <td><span class="badge badge-green">Texto + Visión</span></td>
+      <td>~64 GB</td>
+      <td>~16 GB</td>
+      <td>2× RTX 5090</td>
+      <td>2× RTX 6000 Ada</td>
+      <td>5-20</td>
+    </tr>
+    <tr>
+      <td>Mistral Small 4</td>
+      <td>24B</td>
+      <td><span class="badge badge-blue">Texto</span></td>
+      <td>~48 GB</td>
+      <td>~12 GB</td>
+      <td>RTX 6000 Ada</td>
+      <td>2× RTX 5090</td>
+      <td>5-15</td>
+    </tr>
+    <tr>
+      <td>Llama 4</td>
+      <td>70B</td>
+      <td><span class="badge badge-green">Texto + Visión</span></td>
+      <td>~140 GB</td>
+      <td>~35 GB</td>
+      <td>4× RTX 6000 Ada</td>
+      <td>6× RTX 6000 Ada</td>
+      <td>20-50</td>
+    </tr>
+    <tr>
+      <td>Qwen 2.5</td>
+      <td>72B</td>
+      <td><span class="badge badge-blue">Texto</span></td>
+      <td>~144 GB</td>
+      <td>~36 GB</td>
+      <td>4× RTX 6000 Ada</td>
+      <td>6× RTX 6000 Ada</td>
+      <td>20-50</td>
+    </tr>
+    <tr>
+      <td>Command R+</td>
+      <td>104B</td>
+      <td><span class="badge badge-blue">Texto</span></td>
+      <td>~208 GB</td>
+      <td>~52 GB</td>
+      <td>8× RTX 6000 Ada</td>
+      <td>8× H100</td>
+      <td>30-80</td>
+    </tr>
+    <tr>
+      <td>Llama 4</td>
+      <td>405B</td>
+      <td><span class="badge badge-green">Texto + Visión</span></td>
+      <td>~810 GB</td>
+      <td>~203 GB</td>
+      <td>8× H100</td>
+      <td>DGX B200</td>
+      <td>100+</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="color:#8892b0; font-size:0.85em; margin-top:8px;">* VRAM estimada (incluye overhead de ~20% para contexto y KV cache). Usuarios simultáneos asumiendo RAG + chat estándar.</p>
+
+<!-- STACK TECNOLÓGICO -->
+<h2>🛠 Stack Tecnológico Recomendado</h2>
+<table>
+  <tr><td style="font-weight:600; color:#ccd6f6;">Servidor de modelos</td><td>Ollama + vLLM (para producción)</td></tr>
+  <tr><td style="font-weight:600; color:#ccd6f6;">Interfaz de usuario</td><td>Open WebUI · LibreChat · Odysseus</td></tr>
+  <tr><td style="font-weight:600; color:#ccd6f6;">Framework de agentes</td><td>Hermes Agent (automatizaciones, cron, delegación)</td></tr>
+  <tr><td style="font-weight:600; color:#ccd6f6;">RAG / Búsqueda</td><td>ChromaDB / Qdrant + fastembed</td></tr>
+  <tr><td style="font-weight:600; color:#ccd6f6;">Monitorización</td><td>Grafana + Prometheus + nvitop</td></tr>
+  <tr><td style="font-weight:600; color:#ccd6f6;">Orquestación</td><td>Docker Compose · Kubernetes (Nivel 3)</td></tr>
+</table>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>
+    <strong>CerveretaDev</strong> — IA local, privada y sin nube para empresas<br>
+    <a href="https://cerveretadev.es">cerveretadev.es</a>
+  </p>
+  <p style="margin-top:8px; font-size:0.85em;">
+    <span class="tag">#IAPrivada</span>
+    <span class="tag">#OpenSource</span>
+    <span class="tag">#ModelosLocales</span>
+    <span class="tag">#TransformaciónDigital</span>
+  </p>
+</div>
+
+</div>
+</body>
+</html>
